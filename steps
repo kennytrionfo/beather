@@ -52,9 +52,44 @@ USE THE ANGULAR DEPENDENCIES by declaring them:
 	rf for errors. 
 
 SET UP ROUTING for SPA that has two pages, a home & a forcast page. 
-	Create two controllers. 
-	Create two htm pages. 
+	Create two htm pages inside of a new pages folder. 
+	Create two controllers:
+		beatherApp.controller('homeController', ['$scope', function($scope){
+		}]);
+
+		beatherApp.controller('forcastController', ['$scope', function($scope){
+		}]);
 	Create routes to connect them. 
+		In ur app.js file: 
+			beatherApp.config(function ($routeProvider){
+			$routeProvider
+			.when('/', {
+				templateUrl: 'pages/home.htm',
+				controller: 'homeController'
+			})
+			.when('/forecast', {
+				templateUrl: 'pages/forecast.htm',
+				controller: 'forecastContoller'
+			})
+			
+	Tell ur index view that ur doing a SPA: 
+		By putting the ng-view directive inside of ur container div in the index.htm file like:
+			<div ng-view></div>
+
+	rf and should see home.htm and when u add '/forecast' to url, should see forcast.htm page. 
+
+Create a FORM with an input box and button on the home page: 
+	<div class="row" style="background: darkblue" >
+		<div class="col-md-6 col-md-offset-3" style="background: lightyellow">
+			<h4>Forecast by City </h4>
+			<div class="form-group"  >
+				<input type="text" class="form-control" ng-model="city"  />
+			</div>
+			<a href="#/forecast" class="btn btn-primary" >Get Forecast</a>
+
+		</div>
+	</div>
+
 
 
 
