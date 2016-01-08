@@ -13,9 +13,50 @@ Create an HTML FILE with Meta, Links and Scripts in the head:
   <script src="../bower_components/angular-resource/angular-resource.min.js"></script>
   <script src="app.js"></script>  
 
-  
-
 Create a MAIN JS file: 
 
 Create a HEADER	in the body of ur html file using bootstrap with a navbar nav, with a container div in it, with a navbar-header div and nav ul in it:
- 
+	<header>
+		<nav class="navbar navbar-default "  >
+		<div class="container "  >
+			<div class="navbar-header "  >
+				<a href="/" class="navbar-brand "  >Beather</a>
+			</div>
+			<ul class="nav navbar-nav navbar-right "  >
+				<li><a href="#"><i class="fa fa-home "  ></i> Home</a> </li>
+			</ul>
+		</div>
+		</nav>
+	</header> 
+
+Create an EMPTY CONTAINER below the header: 
+	<div class="container "  >
+		
+	</div>
+
+MAKE IT AN ANGULAR APP by telling angularJS to start looking at our html as an angularJS app by:
+	Declaring a var that goes into the global namespace:
+	In js file: 
+		var beatherApp = angular.module('beatherApp', []
+
+		);
+	And put a directive in the html to tell it what app we're using: 
+		<html ng-app="beatherApp">
+
+	rf & check for errors in the browser console. 
+
+USE THE ANGULAR DEPENDENCIES by declaring them: 
+	Specifically ng-route and ng-resource, 
+	Ur ang module should look like this: 
+	var beatherApp = angular.module('beatherApp', ['ngRoute', 'ngResource']
+	rf for errors. 
+
+SET UP ROUTING for SPA that has two pages, a home & a forcast page. 
+	Create two controllers. 
+	Create two htm pages. 
+	Create routes to connect them. 
+
+
+
+
+
