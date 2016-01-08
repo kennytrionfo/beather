@@ -1,0 +1,21 @@
+steps:
+
+Create an HTML FILE with Meta, Links and Scripts in the head: 
+	<!-- /////////////////////////========METAS=======\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+  <meta charset="UTF-8">
+  
+  <!-- /////////////////////////========LINKS: Bootstrap, FontAwesome, ? =======\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+
+  <!-- /////////////////////////========SCRIPTS: Angular, Jquery, MainJs File,  =======\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+  <script type="text/javascript" src="../bower_components/angular/angular.min.js"> </script>
+  <script src="../bower_components/angular-route/angular-route.min.js"></script>
+  <script src="../bower_components/angular-resource/angular-resource.min.js"></script>
+  <script src="app.js"></script>  
+
+  
+
+Create a MAIN JS file: 
+
+Create a HEADER	in the body of ur html file using bootstrap with a navbar nav, with a container div in it, with a navbar-header div and nav ul in it:
+ 
