@@ -189,7 +189,32 @@ Add some numbers that we can click on to choose how many days to display:
 Put a Back to Search link at the top of this forecast page: 
 
 Make the date and temp panel html a CUSTOM DIRECTIVE: 
-	
+	Create a Directives folder.
+	Create a new file in it called weatherReport.html
+	Cut and paste the panel html from the forecast page into the new custom directive html page. 
+	Define/create the custom directive in ur js file: 
+		beatherApp.directive("weatherReport", function() {
+			return {
+		
+			}
+		})
+		Restrict it to only be an html element. 
+			Add:
+			restrict: 'E', 
+			to the return object. 
+		Add the templateUrl to the return object:
+			templateUrl: 'directives/weatherReport.html',
+		Make it so the contents of the directive replace the placeholder completely with: 
+			replace: true,
+		Isolate the scope by: 
+			Add the weatherResult directive to the html you wnat to replace on the forecast page as an element: 
+				<weather-result></weather-result>
+			Use the object 'w' (which contains the date and list of tempuratures) and 
+			pass an object to ur weather-result custom directive in ur html
+			poke a hole in ur isolated scope using attriubutes on the directive
+				make each of the 'w's weatherDay by: 
+					weatherDay: "=",
+					Then in the custom element add weather-day="w"
 
 
 

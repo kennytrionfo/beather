@@ -58,5 +58,18 @@ beatherApp.service('cityService', function() {
 	this.city = "Del Ray, FL";
 });
 
-
+/////////////////////////========DIRECTIVES=======\\\\\\\\\\\\\\\\\\\\\\\\\\\
+beatherApp.directive("weatherReport", function() {
+	return {
+		restrict: 'E', 
+		templateUrl: 'directives/weatherReport.html',
+		replace: true,  
+		// scope: {
+		// 	weatherDay: "=", 
+		// 	convertToStandard: "&",
+		// 	convertToDate: "&",
+		// 	dateFormat: "@"
+		// }
+	}
+})
 
