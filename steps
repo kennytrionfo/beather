@@ -216,6 +216,12 @@ Make the date and temp panel html a CUSTOM DIRECTIVE:
 					weatherDay: "=",
 					Then in the custom element add weather-day="w"
 
+Move ur Routes to a routes.js file and add a script to it on ur index html page after the app.js script.
+Do the same for services and controllers and directives. 
+ 
+
+
+
 
 
 
