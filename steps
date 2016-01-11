@@ -90,6 +90,109 @@ Create a FORM with an input box and button on the home page:
 		</div>
 	</div>
 
+	Test it. click button, should go to forcast page and click home from forecast pg & should take u back to home. 
+
+Build the ABILITY TO SHARE DATA BETWEEN PAGES of forecast and home so you can input a city into the text box on home page and have it show up on the forecast page: 
+	So you need to get a city name in ur scope for both pages. So on the home page, bind the text box to the city name for the scope, and then interpolate it on the forecast page using a custom service:
+	Create a custom service: 
+		beatherApp.service('cityService', function() {
+		this.city = "Del Ray, FL";
+		});
+	Add/inject that service to each of ur controllers and put the city model in them:
+		beatherApp.controller('forecastController', ['$scope', 'cityService', function($scope, cityService){
+		$scope.city = cityService.city;
+		}]);
+	Then add a watcher in the home controller to update the city model when it is changed in the text box: 
+		$scope.$watch('city', function(){
+			cityService.city = $scope.city;
+		});
+			
+	Now do the binding for this model: 
+		Add: 
+		ng-model="city"
+		to the input box. 
+	Now do the interpolation: 
+		On the forecast page: 
+			Forecast for {{city }}
+
+Bind OUTSIDE DATA to the page: 
+	Use ngResource to get data off the internet by
+		Putting the resource service in the controller that you'll be getting the data in, 
+			Which is forecast controller. First line should look like this: 
+				beatherApp.controller('homeController', ['$scope', '$resource', 'cityService', function($scope, $resource, cityService){
+	Put a var on your scope that will have the call in it and go get the json data: 
+		$scope.weatherApi = 
+		$resource("http://api.openweathermap.org/data/2.5/forecast/daily?APPID=d8f5102c89d08caf442ba64a6bcda871", 
+			{
+				callback: "JSON_CALLBACK" //this and the method below just says "it's ok to get this data. it's not a hack attempt."
+			},
+			{
+				get: 
+					{
+						method: "JSONP"
+					}
+			}
+		);
+	Now that you have the data in the above var, create another var that will call it and get the data that you NEED out of it and put it into a var?: 
+		$scope.weatherResult = $scope.weatherApi.get( 
+			{
+				q: $scope.city,
+				cnt: 2
+			});
+	Console log the weather result to see what it looks like and play with the object in the console with: 
+				console.log($scope.weatherResult);
+
+Bind this data to the screen by repeating each line of data in the list: 
+	On our forcast page: 
+	Create a div with ng-repeat in it that set's 'w' to the weatherResult's list and 
+	a row inside of that and 
+	a col-md-12 inside of that and 
+	panel panel-default inside of that and 
+	panel-heading inside of that and 
+	a panel-title h3 inside of that which has the date interpolated in it and 
+	under the panel-heading div, a panel-body div with the daytime temp interpolated inside of it: 
+	rf
+
+Pretty up the dates and temps:
+	By creating some methods...
+	*** This is not done in these steps. Maybe fill in later. Skip for now. 
+
+Add some numbers that we can click on to choose how many days to display: 
+	Make it so you can pass a number to the url as a parameter: 
+		In routes:
+			Add a new route that accepts a days parameter by: 
+				Creating a pattern match that looks for a variable name after the /forecast with: 
+					:days so a third route should look like this: 
+							.when('/forecast', {
+								templateUrl: 'pages/forecast.htm',
+								controller: 'forecastController'
+							});
+			To get that var in your url, add the $routeParams service to the controller that ur in: 
+				So add $routeParams in the controller dependencies.
+				Add a new scope property called 'days' which is simply the new 'days' route to output to the screen and include a default:
+					$scope.days = $routeParams.days || '2'; 				
+				Then update the count property of the ojbect in the weatherResult variable to be this new 'days' property so that it changes dynamically: 
+					So cnt: $scope.days instead of cnt: 2
+				rf and add some numbers to the end of the url to make sure it gives you different days. 
+			Add some numbers to ur html that you can click on to get different days:
+				<hr />
+				Days: <a href="#/forecast/2" >2</a> | <a href="#/forecast/3" >3</a> | <a href="#/forecast/4" >4</a>
+				<br>
+				rf test
+			Make it so that the number that ur on is highlighted:
+				Use the ng-class directive to change which class appears on a particular element: 
+				Should look like: 
+					<hr />
+					Days: <a href="#/forecast/2" ng-class="{'bg-primary': days === '2' }"  >2</a> | <a href="#/forecast/3" ng-class="{'bg-primary': days === '3' }">3</a> | <a href="#/forecast/4" ng-class="{'bg-primary': days === '4' }" >4</a>
+					<br>
+
+Put a Back to Search link at the top of this forecast page: 
+
+Make the date and temp panel html a CUSTOM DIRECTIVE: 
+	
+
+
+
 
 
 
