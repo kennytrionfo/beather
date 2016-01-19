@@ -1,6 +1,6 @@
 steps:
 
-Create an HTML FILE with Meta, Links and Scripts in the head: 
+Create ur main index HTML FILE with Meta, Links and Scripts in the head: 
 	<!-- /////////////////////////========METAS=======\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
   <meta charset="UTF-8">
   
@@ -11,11 +11,11 @@ Create an HTML FILE with Meta, Links and Scripts in the head:
   <script type="text/javascript" src="../bower_components/angular/angular.min.js"> </script>
   <script src="../bower_components/angular-route/angular-route.min.js"></script>
   <script src="../bower_components/angular-resource/angular-resource.min.js"></script>
-  <script src="app.js"></script>  
+  <script src="something_app.js"></script>  
 
 Create a MAIN JS file: 
 
-Create a HEADER	in the body of ur html file using bootstrap with a navbar nav, with a container div in it, with a navbar-header div and nav ul in it:
+Create a HEADER	in the body of ur html file using bootstrap with a navbar div, with a container div in it, with a navbar-header div with a navbar-brand a tag in it and UNDER THAT a nav ul with a li holding an a tag in it:
 	<header>
 		<nav class="navbar navbar-default "  >
 		<div class="container "  >
@@ -23,7 +23,7 @@ Create a HEADER	in the body of ur html file using bootstrap with a navbar nav, w
 				<a href="/" class="navbar-brand "  >Beather</a>
 			</div>
 			<ul class="nav navbar-nav navbar-right "  >
-				<li><a href="#"><i class="fa fa-home "  ></i> Home</a> </li>
+				<li><a href="#/"><i class="fa fa-home "  ></i> Home</a> </li>
 			</ul>
 		</div>
 		</nav>
@@ -60,7 +60,7 @@ SET UP ROUTING for SPA that has two pages, a home & a forcast page.
 		beatherApp.controller('forcastController', ['$scope', function($scope){
 		}]);
 	Create routes to connect them. 
-		In ur app.js file: 
+		In ur something_app.js file: 
 			beatherApp.config(function ($routeProvider){
 			$routeProvider
 			.when('/', {
@@ -73,20 +73,19 @@ SET UP ROUTING for SPA that has two pages, a home & a forcast page.
 			})
 			
 	Tell ur index view that ur doing a SPA: 
-		By putting the ng-view directive inside of ur container div in the index.htm file like:
+		By putting the ng-view directive inside of another div inside of ur container div in the index.htm file like:
 			<div ng-view></div>
 
 	rf and should see home.htm and when u add '/forecast' to url, should see forcast.htm page. 
 
 Create a FORM with an input box and button on the home page: 
 	<div class="row" style="background: darkblue" >
-		<div class="col-md-6 col-md-offset-3" style="background: lightyellow">
+ 		<div class="col-md-6 col-md-offset-3" style="background: lightyellow">
 			<h4>Forecast by City </h4>
 			<div class="form-group"  >
-				<input type="text" class="form-control" ng-model="city"  />
+				<input type="text" class="form-control"  />
 			</div>
 			<a href="#/forecast" class="btn btn-primary" >Get Forecast</a>
-
 		</div>
 	</div>
 
@@ -107,11 +106,11 @@ Build the ABILITY TO SHARE DATA BETWEEN PAGES of forecast and home so you can in
 			cityService.city = $scope.city;
 		});
 			
-	Now do the binding for this model: 
+	Now bind this model to the input box: 
 		Add: 
 		ng-model="city"
 		to the input box. 
-	Now do the interpolation: 
+	Show this model on the forcast page: 
 		On the forecast page: 
 			Forecast for {{city }}
 
@@ -144,14 +143,27 @@ Bind OUTSIDE DATA to the page:
 
 Bind this data to the screen by repeating each line of data in the list: 
 	On our forcast page: 
-	Create a div with ng-repeat in it that set's 'w' to the weatherResult's list and 
-	a row inside of that and 
+	Create a div with ng-repeat in it that set's 'w' to the weatherResult's list and a 
+	row inside of that and 
 	a col-md-12 inside of that and 
 	panel panel-default inside of that and 
 	panel-heading inside of that and 
 	a panel-title h3 inside of that which has the date interpolated in it and 
 	under the panel-heading div, a panel-body div with the daytime temp interpolated inside of it: 
 	rf
+	html should look something like: 
+		<div ng-repeat="w in weatherResult.list"  >
+			<div class="row "  >
+				<div class="md-col-12 "  >
+					<div class="panel panel-default "  >
+						<div class="panel-heading "  >
+							<h3 class="panel-title "> Date: {{w.dt}}</h3> 
+						</div>
+						<div class="panel-body "  >Daytime Temp: {{w.temp.day}}	</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 Pretty up the dates and temps:
 	By creating some methods...
@@ -163,13 +175,13 @@ Add some numbers that we can click on to choose how many days to display:
 			Add a new route that accepts a days parameter by: 
 				Creating a pattern match that looks for a variable name after the /forecast with: 
 					:days so a third route should look like this: 
-							.when('/forecast', {
+							.when('/forecast/:days', {
 								templateUrl: 'pages/forecast.htm',
 								controller: 'forecastController'
 							});
 			To get that var in your url, add the $routeParams service to the controller that ur in: 
 				So add $routeParams in the controller dependencies.
-				Add a new scope property called 'days' which is simply the new 'days' route to output to the screen and include a default:
+				ABOVE THE weatherResult VAR, (so it can be used below it) Add a new scope property called 'days' which is simply the new 'days' route to output to the screen and include a default:
 					$scope.days = $routeParams.days || '2'; 				
 				Then update the count property of the ojbect in the weatherResult variable to be this new 'days' property so that it changes dynamically: 
 					So cnt: $scope.days instead of cnt: 2
@@ -216,9 +228,9 @@ Make the date and temp panel html a CUSTOM DIRECTIVE:
 					weatherDay: "=",
 					Then in the custom element add weather-day="w"
 
-Move ur Routes to a routes.js file and add a script to it on ur index html page after the app.js script.
-Do the same for services and controllers and directives. 
- 
+Move ur Routes, services, controllers and directives to a routes.js file and add a script to it on ur index html page after the app.js script.
+
+
 
 
 
